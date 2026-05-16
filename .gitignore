@@ -1,0 +1,5 @@
+_PRIVATE_REVIEW_DO_NOT_COMMIT/
+*.tmp
+~$*
+Thumbs.db
+.DS_Store
