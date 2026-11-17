@@ -1,0 +1,99 @@
+{
+  "generated": "2026-09-13",
+  "source_workbook": "SP500_Data_Analysis Final.xlsx",
+  "output_workbook": "SP500_Data_Analysis_Evaluated_2026-09-13.xlsx",
+  "conclusion": "No tested method beat the naive one-step persistence baseline on holdout RMSE. The defensible result is baseline performance, not a market-prediction claim.",
+  "best_method": "Naive",
+  "best_rmse_improvement_vs_naive": 0.0,
+  "data_audit": {
+    "usable_observations": 2559,
+    "source_rows": "4-2562",
+    "first_value": 159.19,
+    "last_value": 429.13,
+    "excluded_tail_rows": 3793,
+    "excluded_tail_linear": true,
+    "calendar_dates_present": false,
+    "instrument_source_verified": false
+  },
+  "methodology": {
+    "split": "First 80% training / final 20% holdout",
+    "training_observations": 2047,
+    "holdout_observations": 512,
+    "holdout_first_observation": 2048,
+    "holdout_last_observation": 2559,
+    "parameter_selection": "Training partition only",
+    "forecast_protocol": "Rolling one-step-ahead with prior actuals only"
+  },
+  "methods": {
+    "Naive": {
+      "observations": 512,
+      "mae": 3.809570312500001,
+      "rmse": 5.035549987029718,
+      "directional_accuracy": 0.001953125
+    },
+    "MA(5)": {
+      "observations": 512,
+      "mae": 5.607937500000416,
+      "rmse": 7.212230001445874,
+      "directional_accuracy": 0.517578125
+    },
+    "MA(20)": {
+      "observations": 512,
+      "mae": 9.898386718751315,
+      "rmse": 12.203185722562015,
+      "directional_accuracy": 0.482421875
+    },
+    "MA(60)": {
+      "observations": 512,
+      "mae": 14.253646809896509,
+      "rmse": 17.39935657675055,
+      "directional_accuracy": 0.486328125
+    },
+    "MA(200)": {
+      "observations": 512,
+      "mae": 27.813355761718714,
+      "rmse": 32.85977337739914,
+      "directional_accuracy": 0.45703125
+    },
+    "SES fixed (alpha=0.0952)": {
+      "observations": 512,
+      "mae": 8.44962909213913,
+      "rmse": 10.509770607592149,
+      "directional_accuracy": 0.494140625
+    },
+    "SES optimized (alpha=0.868)": {
+      "observations": 512,
+      "mae": 3.8799940406871873,
+      "rmse": 5.078178393781147,
+      "directional_accuracy": 0.51171875
+    },
+    "Holt trend (alpha=0.870, beta=0.010)": {
+      "observations": 512,
+      "mae": 3.8650142585735043,
+      "rmse": 5.095877123841354,
+      "directional_accuracy": 0.509765625
+    }
+  },
+  "band_coverage": {
+    "2_sigma": 0.80859375,
+    "3_sigma": 0.974609375
+  },
+  "next_observation_forecasts": {
+    "Naive": 429.13,
+    "MA(5)": 427.746,
+    "MA(20)": 418.86400000000003,
+    "MA(60)": 410.48366666666664,
+    "MA(200)": 396.70095000000003,
+    "SES fixed (alpha=0.0952)": 420.30746077049434,
+    "SES optimized (alpha=0.868)": 428.8130735841773,
+    "Holt trend (alpha=0.870, beta=0.010)": 429.09224837771967
+  },
+  "original_formula_audit": {
+    "Naive formula": "D5 = =C4; correctly shifts the prior observation",
+    "MA(5) formula": "E8 = =AVERAGE(C4:C8); includes C8, the target row, causing look-ahead bias",
+    "MA(20) formula": "F24 = =AVERAGE(C4:C23); uses the prior 20 observations and is correctly aligned",
+    "MA(60) formula": "G64 = =AVERAGE(C4:C64); includes C64 and 61 values, causing look-ahead/misalignment",
+    "MA(200) formula": "H204 = =AVERAGE(C4:C204); includes C204 and 201 values, causing look-ahead/misalignment",
+    "SES formula": "P5 = =alpha*C4+(1-alpha)*P4; one-step recursion is correctly aligned"
+  }
+}
